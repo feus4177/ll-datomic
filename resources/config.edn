@@ -1,0 +1,3 @@
+{:db {:name "hello"
+      :port 4334
+      :domain "datomic:dev://localhost"}}
