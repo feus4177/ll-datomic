@@ -3,7 +3,6 @@
   :url "https://github.com/feus4177/ll-datomic"
   :license nil
   :dependencies [[org.clojure/clojure "1.10.0"]
-                 ;;[com.datomic/client-pro "0.8.28"]
                  [com.datomic/datomic-pro "0.9.5786"]
                  [io.rkn/conformity "0.5.1"]
                  [io.pedestal/pedestal.service "0.5.5"]

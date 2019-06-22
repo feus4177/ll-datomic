@@ -1,0 +1,12 @@
+{:scalars
+ {:UUID {:parse :scalars/parse-uuid :serialize :scalars/serialize-uuid}}
+ :objects
+ {:User
+  {:description "An application user."
+   :fields
+   {:id {:type (non-null UUID)}
+    :email {:type (non-null String)}}}}
+ :queries
+ {:users
+  {:type (list :User)
+   :resolve :queries/users}}}

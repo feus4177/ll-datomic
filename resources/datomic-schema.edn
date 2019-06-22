@@ -24,4 +24,16 @@
            :db/doc "The time at which the entry ended."
            :db/valueType :db.type/instant
            :db/cardinality :db.cardinality/one
-           :db/id #db/id[:db.part/db]}]]}}
+           :db/id #db/id[:db.part/db]}]]}
+ :harvested/migration-002
+ {:requires [:harvested/migration-001]
+  :txes [[{:db/ident :harvested/id
+           :db/doc "A UUID for domain use."
+           :db/valueType :db.type/uuid
+           :db/cardinality :db.cardinality/one
+           :db/unique :db.unique/value
+           :db/id #db/id[:db.part/db]}]]}
+ :harvested/migration-003
+ {:requires [:harvested/migration-002]
+  :txes-fn harvested.migrations.003/run}}
+
