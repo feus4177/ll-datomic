@@ -36,4 +36,3 @@
  :harvested/migration-003
  {:requires [:harvested/migration-002]
   :txes-fn harvested.migrations.003/run}}
-

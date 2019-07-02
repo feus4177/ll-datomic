@@ -22,3 +22,12 @@ vs NoSQL
 - ACID
 - JOINS!!
 - Sensible data structure
+
+Cool things
+- query as data (easily generate nested queries)
+
+How does this apply to me?
+- IDK
+
+Future Inquiries
+- Performance of nested/recursive queries

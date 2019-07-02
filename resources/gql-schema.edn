@@ -1,12 +1,23 @@
 {:scalars
- {:UUID {:parse :scalars/parse-uuid :serialize :scalars/serialize-uuid}}
+ {:UUID {:parse :scalars/parse-uuid :serialize :scalars/serialize-uuid}
+  :Instant {:parse :scalars/parse-instant :serialize :scalars/serialize-instant}}
  :objects
  {:User
   {:description "An application user."
    :fields
-   {:id {:type (non-null UUID)}
-    :email {:type (non-null String)}}}}
+   {:id {:type (non-null :UUID)}
+    :email {:type (non-null String)}}}
+  :Entry
+  {:description "An entry describing a single period of billable time"
+   :fields
+   {:id {:type (non-null :UUID)}
+    :user {:type (non-null :User)}
+    :startTime {:type :Instant}
+    :endTime {:type :Instant}}}}
  :queries
  {:users
   {:type (list :User)
-   :resolve :queries/users}}}
+   :resolve :queries/users}
+  :entries
+  {:type (list :Entry)
+   :resolve :queries/entries}}}

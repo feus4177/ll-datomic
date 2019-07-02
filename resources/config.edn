@@ -1,3 +1,9 @@
 {:db {:name "hello"
       :port 4334
-      :domain "datomic:dev://localhost"}}
+      :domain "datomic:dev://localhost"}
+ :selection-lookup {:User/id [:harvested/id :as :id]
+                    :User/email [:user/email :as :email]
+                    :Entry/id [:harvested/id :as :id]
+                    :Entry/startTime [:entry/start-time :as :startTime]
+                    :Entry/endTime [:entry/end-time :as :endTime]
+                    :Entry/user [:entry/user :as :user]}}
