@@ -20,4 +20,5 @@
    :resolve :queries/users}
   :entries
   {:type (list :Entry)
-   :resolve :queries/entries}}}
+   :resolve :queries/entries
+   :args {:user {:type :UUID}}}}}

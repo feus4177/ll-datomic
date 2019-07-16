@@ -31,27 +31,49 @@
             (if (nil? nested-definition)
               alias-clause
               {alias-clause (construct-pull (nested-definition :selections))})))
-       selections-tree))
+        selections-tree))
+
+(defn get-filters
+  [args]
+  (let [filters {:in [] :where [] :args []}]
+    (if (nil? args)
+      filters
+      (cond-> filters
+              (args :user)
+              (->
+                (update :in conj '?user-id)
+                (update :args conj (args :user))
+                (update :where into '[[?user :harvested/id ?user-id] [?entities :entry/user ?user]]))))))
+
+(defn construct-query
+  [context filters where]
+  {:query {:find '[[(pull ?entities pull-expression) ...]]
+           :in (into '[$ pull-expression] (filters :in))
+           :where (into where (filters :where))}
+   :args (into
+           [(d/db db-conn)
+            (construct-pull (executor/selections-tree context))]
+           (filters :args))})
 
 (defn query-users
-  [context _ _]
-  (d/q '[:find [(pull ?entities pull-expression) ...]
-         :in $ pull-expression
-         :where [?entities :user/email]]
-       (d/db db-conn)
-       (construct-pull (executor/selections-tree context))))
+  [context args _]
+  (d/query (construct-query
+             context
+             (get-filters args)
+             '[[?entities :user/email]])))
 
 (defn query-entries
   [context args value]
+  (println "-------------------")
   ;;(println "context:" context)
   (println "args:" args)
   (println "value:" value)
   (println "selections-tree:" (executor/selections-tree context))
-  (d/q '[:find [(pull ?entities pull-expression) ...]
-         :in $ pull-expression
-         :where [?entities :entry/user]]
-       (d/db db-conn)
-       (construct-pull (executor/selections-tree context))))
+  (println "======================")
+  (d/query (construct-query
+             context
+             (get-filters args)
+             '[[?entities :entry/user]])))
 
 (def gql-schema (-> "gql-schema.edn"
                     c/read-resource
