@@ -1,3 +1,4 @@
+# Backend
 /target
 /classes
 /checkouts
@@ -11,3 +12,7 @@ pom.xml.asc
 .hgignore
 .hg/
 *.iml
+
+# Frontend
+node_modules/
+.fusebox/
